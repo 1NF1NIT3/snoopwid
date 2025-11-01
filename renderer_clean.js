@@ -23,7 +23,7 @@ try {
 
 // Renderer: single clean script that manages themes, audio, and UI
 const THEMES = [
-  {
+{
     id: 'GLUE',
     name: 'Snoopy x Glue (Night)',
     title: 'GLUE SONG',
@@ -122,32 +122,32 @@ function applyTheme(index) {
     console.warn('Failed to apply vinyl artwork', err);
   }
 
-  try {
-    const vinylLabel = document.getElementById('vinylLabel');
-    if (vinylLabel) {
-      if (theme.labelText !== undefined) vinylLabel.textContent = theme.labelText;
-      if (theme.labelColor) {
-        vinylLabel.style.background = theme.labelColor;
-        const lc = String(theme.labelColor).toLowerCase();
-        if (lc.includes('gradient') || lc.includes('rgb')) {
-          vinylLabel.style.color = '#111827';
-        } else if (lc.startsWith('#') && lc.length >= 7) {
-          try {
-            const r = parseInt(lc.substr(1,2),16);
-            const g = parseInt(lc.substr(3,2),16);
-            const b = parseInt(lc.substr(5,2),16);
-            const lum = (0.2126*r + 0.7152*g + 0.0722*b)/255;
-            vinylLabel.style.color = (lum > 0.6) ? '#111827' : '#ffffff';
-          } catch(e) {
-            vinylLabel.style.color = '#111827';
-          }
-        } else {
-          vinylLabel.style.color = '#111827';
-        }
-      } else {
-        vinylLabel.style.background = '';
-        vinylLabel.style.color = '';
-      }
+ try {
+const vinylLabel = document.getElementById('vinylLabel');
+if (vinylLabel) {
+if (theme.labelText !== undefined) vinylLabel.textContent = theme.labelText;
+if (theme.labelColor) {
+vinylLabel.style.background = theme.labelColor;
+const lc = String(theme.labelColor).toLowerCase();
+if (lc.includes('gradient') || lc.includes('rgb')) {
+ vinylLabel.style.color = '#111827';
+} else if (lc.startsWith('#') && lc.length >= 7) {
+try {
+ const r = parseInt(lc.substr(1,2),16);
+ const g = parseInt(lc.substr(3,2),16);
+ const b = parseInt(lc.substr(5,2),16);
+ const lum = (0.2126*r + 0.7152*g + 0.0722*b)/255;
+ vinylLabel.style.color = (lum > 0.6) ? '#111827' : '#ffffff';
+ } catch(e) {
+vinylLabel.style.color = '#111827';
+ }
+} else {
+ vinylLabel.style.color = '#111827';
+ }
+ } else {
+ vinylLabel.style.background = '';
+vinylLabel.style.color = '';
+}
     }
   } catch (err) {
     console.warn('Failed to apply vinyl label customizations', err);
@@ -181,6 +181,10 @@ if (theme.background) {
     // Also add to widget for widget-mode compatibility
     if (widget) {
       widget.classList.add(theme.bodyClass);
+      console.log('Applied theme class to widget:', theme.bodyClass);
+      console.log('Widget classes:', widget.className);
+    } else {
+      console.warn('Widget element not found!');
     }
 } else if (theme.colors && theme.colors.primaryBg) {
     // Default fallback: Set primary background color
@@ -193,12 +197,55 @@ if (theme.background) {
   else document.body.style.fontFamily = '';
   if (theme.fontUrl) loadFontIfNeeded(theme);
   
-  const cornerGif = document.getElementById('cornerGif');
-  if (cornerGif && theme.cornerGif) {
-    try { cornerGif.style.backgroundImage = `url(${theme.cornerGif})`; } catch (e) { console.warn(e); }
-  } else if (cornerGif) {
-    cornerGif.style.backgroundImage = '';
-  }
+  const cornerGif = document.getElementById('cornerGif');
+  if (cornerGif && theme.cornerGif) {
+    try { cornerGif.style.backgroundImage = `url(${theme.cornerGif})`; } catch (e) { console.warn(e); }
+  } else if (cornerGif) {
+    cornerGif.style.backgroundImage = '';
+  }
+  
+  // FORCE background application directly to widget for widget-mode
+  const widgetEl = document.getElementById('widget');
+  if (widgetEl && theme.bodyClass === 'starlight-background') {
+    // Apply starlight background directly
+    widgetEl.style.backgroundColor = '#1D2B4D';
+    // Create stars using a simpler pattern
+    widgetEl.style.backgroundImage = `
+      radial-gradient(circle 2.5px at 20px 40px, rgba(240, 248, 255, 0.9) 0%, transparent 2.5px),
+      radial-gradient(circle 2.5px at 100px 70px, rgba(240, 248, 255, 0.9) 0%, transparent 2.5px),
+      radial-gradient(circle 2.5px at 180px 25px, rgba(240, 248, 255, 0.9) 0%, transparent 2.5px),
+      radial-gradient(circle 2px at 260px 90px, rgba(240, 248, 255, 0.7) 0%, transparent 2px),
+      radial-gradient(circle 2.5px at 60px 95px, rgba(232, 198, 123, 0.6) 0%, transparent 2.5px),
+      radial-gradient(circle 2.5px at 140px 50px, rgba(232, 198, 123, 0.6) 0%, transparent 2.5px),
+      radial-gradient(circle 2px at 220px 120px, rgba(196, 158, 158, 0.6) 0%, transparent 2px),
+      radial-gradient(circle 2.5px at 40px 130px, rgba(196, 158, 158, 0.6) 0%, transparent 2.5px),
+      radial-gradient(circle 2px at 280px 45px, rgba(240, 248, 255, 0.9) 0%, transparent 2px),
+      radial-gradient(circle 2.5px at 120px 110px, rgba(232, 198, 123, 0.6) 0%, transparent 2.5px),
+      radial-gradient(circle 2px at 200px 75px, rgba(240, 248, 255, 0.9) 0%, transparent 2px)
+    `;
+    widgetEl.style.backgroundSize = '320px 160px';
+    widgetEl.style.backgroundRepeat = 'no-repeat';
+  } else if (widgetEl && theme.bodyClass === 'anything-background-effect') {
+    // Apply anything background directly
+    widgetEl.style.backgroundColor = '#FDFDFD';
+    widgetEl.style.backgroundImage = `
+      radial-gradient(circle 12px at 32px 24px, #FFB6C1 0%, transparent 12px),
+      radial-gradient(circle 10px at 272px 32px, #FFB6C1 0%, transparent 10px),
+      radial-gradient(circle 14px at 48px 80px, #FFB6C1 0%, transparent 14px),
+      radial-gradient(circle 10px at 256px 88px, #FFB6C1 0%, transparent 10px),
+      radial-gradient(circle 12px at 80px 128px, #FFB6C1 0%, transparent 12px),
+      radial-gradient(circle 10px at 224px 136px, #FFB6C1 0%, transparent 10px),
+      radial-gradient(circle 8px at 144px 64px, #FFB6C1 0%, transparent 8px),
+      radial-gradient(circle 10px at 176px 80px, #FFB6C1 0%, transparent 10px)
+    `;
+    widgetEl.style.backgroundSize = '320px 160px, 320px 160px, 320px 160px, 320px 160px, 320px 160px, 320px 160px, 320px 160px, 320px 160px';
+    widgetEl.style.backgroundPosition = '32px 24px, 272px 32px, 48px 80px, 256px 88px, 80px 128px, 224px 136px, 144px 64px, 176px 80px';
+    widgetEl.style.backgroundRepeat = 'no-repeat';
+  } else if (widgetEl) {
+    // Clear backgrounds for default theme
+    widgetEl.style.backgroundColor = '';
+    widgetEl.style.backgroundImage = '';
+  }
   
   if (theme.colors) {
     const root = document.documentElement;
