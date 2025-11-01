@@ -58,7 +58,11 @@
         filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
       }
       
-      /* Make background very transparent - feels like running in background */
+      /* Body background - very transparent for widget feel */
+      body {
+        background: rgba(0, 0, 0, 0.1) !important;
+      }
+      
       body.starlight-background {
         background: rgba(29, 43, 77, 0.08) !important;
       }
@@ -67,16 +71,79 @@
         background: rgba(253, 253, 253, 0.05) !important;
       }
       
-      /* Theme backgrounds apply to widget itself - solid, not transparent */
+      /* Theme backgrounds apply to widget itself - WITH all effects */
       body.starlight-background #widget {
-        background: #1D2B4D !important;
+        background-color: #1D2B4D !important;
+        /* Stars background - iOS compatible */
+        background-image:
+          radial-gradient(circle at 10% 20%, #F0F8FF99 1px, transparent 1px), 
+          radial-gradient(circle at 50% 70%, #F0F8FF99 1px, transparent 1px), 
+          radial-gradient(circle at 80% 40%, #F0F8FF99 1px, transparent 1px), 
+          radial-gradient(circle at 35% 10%, #F0F8FF77 1px, transparent 1px), 
+          radial-gradient(circle at 75% 90%, #F0F8FF77 1px, transparent 1px), 
+          radial-gradient(circle at 20% 50%, #E8C67B66 1.5px, transparent 1.5px), 
+          radial-gradient(circle at 90% 60%, #E8C67B66 1.5px, transparent 1.5px),
+          radial-gradient(circle at 5% 85%, #C49E9E66 1.5px, transparent 1.5px), 
+          radial-gradient(circle at 65% 5%, #C49E9E66 1.5px, transparent 1.5px),
+          radial-gradient(circle at 25% 45%, #F0F8FF99 1px, transparent 1px),
+          radial-gradient(circle at 60% 15%, #F0F8FF99 1px, transparent 1px),
+          radial-gradient(circle at 15% 75%, #F0F8FF77 1px, transparent 1px),
+          radial-gradient(circle at 70% 30%, #E8C67B66 1.5px, transparent 1.5px);
+        background-size: 150px 150px;
+        background-repeat: repeat;
+        background-attachment: scroll; /* iOS compatible - not fixed */
+        position: relative;
+        overflow: hidden;
       }
       
+      /* Moon for starlight theme - iOS compatible pseudo-element */
+      body.starlight-background #widget::before {
+        content: '';
+        position: absolute;
+        top: 8%;
+        left: 4%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.3) 80%, transparent 100%);
+        box-shadow: 0 0 15px 4px rgba(255, 255, 255, 0.3);
+        z-index: 2;
+        pointer-events: none;
+        animation: float-anim 10s ease-in-out infinite alternate;
+      }
+      
+      /* Moon floating animation - iOS compatible */
+      @keyframes float-anim {
+        0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+        50% { transform: translate(8px, -8px) scale(1.02); opacity: 1; }
+        100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+      }
+      
+      /* Ensure content appears above moon */
+      body.starlight-background #widget > * {
+        position: relative;
+        z-index: 10;
+      }
+      
+      /* Anything theme - pink petals */
       body.anything-background-effect #widget {
-        background: #FDFDFD !important;
+        background-color: #FDFDFD !important;
+        background-image:
+          radial-gradient(circle 12px at 10% 10%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 10px at 90% 15%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 14px at 15% 50%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 10px at 85% 60%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 12px at 30% 85%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 10px at 70% 80%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 8px at 45% 35%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 10px at 60% 45%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%);
+        background-position: 10% 10%, 90% 15%, 15% 50%, 85% 60%, 30% 85%, 70% 80%, 45% 35%, 60% 45%;
+        background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: scroll; /* iOS compatible */
       }
       
-      /* Make sure widget stands out */
+      /* Default widget background */
       #widget {
         background: var(--widget-bg, #0f172a) !important;
       }
