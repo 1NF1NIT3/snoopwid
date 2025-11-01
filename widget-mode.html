@@ -41,7 +41,7 @@
         height: 160px !important;
         max-height: 160px !important;
         margin: 0 auto;
-        padding: 8px;
+        padding: 10px;
         /* Widget-like appearance - compact and floating */
         background: var(--widget-bg, #0f172a) !important;
         border-radius: 22px;
@@ -51,21 +51,28 @@
         position: relative;
         display: flex;
         align-items: center;
-        overflow: visible !important; /* Ensure content is visible */
+        overflow: hidden !important; /* Keep backgrounds within widget */
         /* Make it stand out - appears to float above background */
         z-index: 1000;
         /* Subtle glow effect */
         filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
       }
       
-      /* Fix content visibility - ensure nothing is clipped or hidden */
+      /* Fix content visibility and center alignment */
       #widget .flex-1 {
         position: relative !important;
         z-index: 15 !important;
         overflow: visible !important;
         display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
         visibility: visible !important;
         opacity: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
       }
       
       /* Ensure all content is visible */
@@ -115,11 +122,12 @@
           radial-gradient(circle at 60% 15%, #F0F8FF99 1px, transparent 1px),
           radial-gradient(circle at 15% 75%, #F0F8FF77 1px, transparent 1px),
           radial-gradient(circle at 70% 30%, #E8C67B66 1.5px, transparent 1.5px);
-        background-size: 150px 150px;
-        background-repeat: repeat;
+        background-size: 320px 160px !important; /* Match widget size - contain within widget */
+        background-repeat: no-repeat !important;
         background-attachment: scroll; /* iOS compatible - not fixed */
+        background-position: 0 0 !important;
         position: relative;
-        overflow: visible !important; /* Don't clip content */
+        overflow: hidden !important; /* Keep stars within widget */
       }
       
       /* Moon for starlight theme - iOS compatible pseudo-element */
@@ -171,22 +179,23 @@
         z-index: 16;
       }
       
-      /* Anything theme - pink petals */
+      /* Anything theme - pink petals - contained within widget */
       body.anything-background-effect #widget {
         background-color: #FDFDFD !important;
         background-image:
-          radial-gradient(circle 12px at 10% 10%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
-          radial-gradient(circle 10px at 90% 15%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
-          radial-gradient(circle 14px at 15% 50%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
-          radial-gradient(circle 10px at 85% 60%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
-          radial-gradient(circle 12px at 30% 85%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
-          radial-gradient(circle 10px at 70% 80%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
-          radial-gradient(circle 8px at 45% 35%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
-          radial-gradient(circle 10px at 60% 45%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%);
-        background-position: 10% 10%, 90% 15%, 15% 50%, 85% 60%, 30% 85%, 70% 80%, 45% 35%, 60% 45%;
-        background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-        background-repeat: no-repeat;
+          radial-gradient(circle 10px at 10% 15%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 8px at 85% 20%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 12px at 15% 50%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 8px at 80% 55%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 10px at 25% 80%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 8px at 70% 85%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 6px at 45% 40%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
+          radial-gradient(circle 8px at 55% 50%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%);
+        background-position: 10% 15%, 85% 20%, 15% 50%, 80% 55%, 25% 80%, 70% 85%, 45% 40%, 55% 50%;
+        background-size: 320px 160px !important; /* Match widget size - contain within widget */
+        background-repeat: no-repeat !important;
         background-attachment: scroll; /* iOS compatible */
+        overflow: hidden !important; /* Keep petals within widget */
       }
       
       /* Default widget background */
@@ -199,32 +208,78 @@
         display: none;
       }
       
-      /* Ensure vinyl stays in place - smaller for compact widget */
+      /* Ensure vinyl stays in place - smaller for compact widget, positioned inside */
       .vinyl-wrap {
         position: absolute;
-        left: -70px;
-        width: 140px !important;
-        height: 140px !important;
+        left: -60px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 130px !important;
+        height: 130px !important;
         z-index: 20;
       }
       
       .vinyl-disc {
-        width: 120px !important;
-        height: 120px !important;
+        width: 110px !important;
+        height: 110px !important;
+      }
+      
+      /* Center and align all content properly */
+      #widget .flex-1 {
+        padding-left: 70px !important; /* Space for vinyl */
+      }
+      
+      /* Theme button - top right */
+      #widget .flex-1 > div:first-child {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 4px;
+      }
+      
+      /* Main content area - centered */
+      #widget .flex-1 > div:last-child {
+        width: 100%;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 4px !important;
+      }
+      
+      /* Center title and artist */
+      #widget #title,
+      #widget #artist {
+        text-align: center !important;
+        display: block !important;
+        width: 100%;
       }
       
       /* Make text slightly smaller for compact feel */
       #title {
-        font-size: 1rem !important;
+        font-size: 0.9rem !important;
+        margin: 0 !important;
+        font-weight: 600 !important;
       }
       
       #artist {
-        font-size: 0.75rem !important;
+        font-size: 0.65rem !important;
+        margin: 0 !important;
+      }
+      
+      /* Center buttons row */
+      #widget .flex-1 > div:last-child > div:last-child {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin-top: 6px !important;
       }
       
       button {
-        padding: 6px 14px !important;
-        font-size: 0.8rem !important;
+        padding: 6px 16px !important;
+        font-size: 0.75rem !important;
       }
       
       /* Responsive - even smaller on mobile */
@@ -289,23 +344,23 @@
       </div>
 
       <!-- Right: content -->
-<div class="flex-1 h-full flex flex-col justify-center pl-16 pr-2">
-        <!-- Removed drag handle for widget mode -->
+<div class="flex-1 h-full flex flex-col justify-center">
+        <!-- Theme button - top right -->
         <div class="w-full flex justify-end items-center mb-1">
           <div class="flex items-center gap-2">
             <button id="themeBtn" class="theme-btn text-xs text-gray-300 px-2 py-1 bg-gray-800 rounded no-drag">Theme</button>
           </div>
         </div>
 
-        <div class="flex items-center justify-between">
-          <div class="flex-1 text-center">
-            <div class="flex items-center justify-center gap-2">
-              <div id="title" class="text-lg font-semibold">Title</div>
-              <div id="heartIcon" class="heart-icon" aria-hidden="true">♥</div>
-            </div>
-            <div id="artist" class="text-xs text-gray-400">Artist</div>
+        <!-- Main content - centered -->
+        <div class="flex flex-col items-center justify-center">
+          <div class="flex items-center justify-center gap-2 mb-1">
+            <div id="title" class="text-lg font-semibold">Title</div>
+            <div id="heartIcon" class="heart-icon" aria-hidden="true">♥</div>
           </div>
+          <div id="artist" class="text-xs text-gray-400 mb-2">Artist</div>
 
+          <!-- Buttons - centered -->
           <div class="flex items-center gap-2 no-drag">
             <button id="playBtn" class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-sm">Play</button>
             <button id="pauseBtn" class="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 text-sm">Pause</button>
