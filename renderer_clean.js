@@ -161,6 +161,12 @@ function applyTheme(index) {
 document.body.classList.remove('anything-background-effect', 'starlight-background', 'bg-gray-900'); 
 document.body.classList.remove('folded-visual');
 
+// Also clear widget classes
+const widget = document.getElementById('widget');
+if (widget) {
+  widget.classList.remove('anything-background-effect', 'starlight-background');
+}
+
 // 2. Clear all inline background properties
 document.body.style.background = ''; 
 document.body.style.backgroundColor = '';
@@ -172,6 +178,10 @@ if (theme.background) {
 } else if (theme.bodyClass) {
     // Theme uses a CSS class for background/effects, like 'anything-background-effect'
     document.body.classList.add(theme.bodyClass);
+    // Also add to widget for widget-mode compatibility
+    if (widget) {
+      widget.classList.add(theme.bodyClass);
+    }
 } else if (theme.colors && theme.colors.primaryBg) {
     // Default fallback: Set primary background color
     document.body.style.backgroundColor = theme.colors.primaryBg;
@@ -300,5 +310,4 @@ document.addEventListener('DOMContentLoaded', () => {
   if (themeBtn) themeBtn.addEventListener('click', (e) => { e.stopPropagation(); themeMenu.classList.toggle('hidden'); });
 
   document.addEventListener('click', () => { themeMenu.classList.add('hidden'); });
-
 });
