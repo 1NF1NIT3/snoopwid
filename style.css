@@ -268,7 +268,7 @@ transition: transform 0.3s linear, box-shadow 0.3s ease-in-out;
   background-position: 10% 10%, 90% 15%, 15% 50%, 85% 60%, 30% 85%, 70% 80%, 45% 35%, 60% 45%;
   background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll; /* Changed from fixed - iOS Safari compatible */
 }
 
 /* Add yellow glow to corner GIF for 'anything' theme */
@@ -352,7 +352,7 @@ transition: transform 0.3s linear, box-shadow 0.3s ease-in-out;
   
   background-repeat: repeat; 
   background-size: 150px 150px; 
-  background-attachment: fixed;
+  background-attachment: scroll; /* Changed from fixed - iOS Safari compatible */
   position: relative; /* Needed for ::before pseudo-element */
   overflow: hidden; /* Ensures moon doesn't overflow */
 }
