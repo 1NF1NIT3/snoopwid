@@ -1,4 +1,4 @@
-const CACHE_NAME = 'music-widget-cache-v4';
+const CACHE_NAME = 'music-widget-cache-v5';
 const urlsToCache = [
     './',
     './index.html',
@@ -82,5 +82,6 @@ self.addEventListener('fetch', event => {
             })
     );
 });
+
 
 
