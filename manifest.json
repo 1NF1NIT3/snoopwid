@@ -1,0 +1,36 @@
+{
+    "name": "Music Widget",
+    "short_name": "Music Widget",
+    "version": "Snoopy",
+    "description": "Beautiful music widget with vinyl visualization - works offline",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#1D2B4D",
+    "theme_color": "#E8C67B",
+    "icons": [
+        {
+            "src": "./assets/snoopicon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "./assets/snoopicon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["music", "entertainment"],
+    "shortcuts": [
+        {
+            "name": "Play Music",
+            "short_name": "Play",
+            "description": "Open and play music",
+            "url": "./index.html",
+            "icons": [{ "src": "./assets/snoopicon.png", "sizes": "192x192" }]
+        }
+    ]
+}
