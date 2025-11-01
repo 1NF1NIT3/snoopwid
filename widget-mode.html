@@ -51,11 +51,37 @@
         position: relative;
         display: flex;
         align-items: center;
-        overflow: visible;
+        overflow: visible !important; /* Ensure content is visible */
         /* Make it stand out - appears to float above background */
         z-index: 1000;
         /* Subtle glow effect */
         filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+      }
+      
+      /* Fix content visibility - ensure nothing is clipped or hidden */
+      #widget .flex-1 {
+        position: relative !important;
+        z-index: 15 !important;
+        overflow: visible !important;
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      /* Ensure all content is visible */
+      #widget #title,
+      #widget #artist,
+      #widget button,
+      #widget .heart-icon {
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 16 !important;
+      }
+      
+      /* Fix any hidden elements */
+      #widget > *:not(.hidden) {
+        visibility: visible !important;
       }
       
       /* Body background - very transparent for widget feel */
@@ -93,7 +119,7 @@
         background-repeat: repeat;
         background-attachment: scroll; /* iOS compatible - not fixed */
         position: relative;
-        overflow: hidden;
+        overflow: visible !important; /* Don't clip content */
       }
       
       /* Moon for starlight theme - iOS compatible pseudo-element */
@@ -119,10 +145,30 @@
         100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
       }
       
-      /* Ensure content appears above moon */
+      /* Ensure content appears above moon - fix z-index without breaking layout */
       body.starlight-background #widget > * {
         position: relative;
-        z-index: 10;
+      }
+      
+      /* Moon stays behind everything */
+      body.starlight-background #widget::before {
+        z-index: 1;
+      }
+      
+      /* All widget content above moon */
+      body.starlight-background #widget .vinyl-wrap {
+        z-index: 20;
+      }
+      
+      body.starlight-background #widget .flex-1 {
+        z-index: 15;
+      }
+      
+      body.starlight-background #widget #title,
+      body.starlight-background #widget #artist,
+      body.starlight-background #widget button,
+      body.starlight-background #widget #themeMenu {
+        z-index: 16;
       }
       
       /* Anything theme - pink petals */
