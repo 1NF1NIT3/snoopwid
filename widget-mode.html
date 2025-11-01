@@ -107,7 +107,7 @@
       /* Theme backgrounds apply to widget itself - WITH all effects */
       body.starlight-background #widget {
         background-color: #1D2B4D !important;
-        /* Stars background - iOS compatible */
+        /* Stars background - repeating pattern, iOS compatible */
         background-image:
           radial-gradient(circle at 10% 20%, #F0F8FF99 1px, transparent 1px), 
           radial-gradient(circle at 50% 70%, #F0F8FF99 1px, transparent 1px), 
@@ -122,10 +122,9 @@
           radial-gradient(circle at 60% 15%, #F0F8FF99 1px, transparent 1px),
           radial-gradient(circle at 15% 75%, #F0F8FF77 1px, transparent 1px),
           radial-gradient(circle at 70% 30%, #E8C67B66 1.5px, transparent 1.5px);
-        background-size: 320px 160px !important; /* Match widget size - contain within widget */
-        background-repeat: no-repeat !important;
+        background-size: 80px 80px !important; /* Smaller repeating tile for compact widget */
+        background-repeat: repeat !important; /* Repeat stars pattern */
         background-attachment: scroll; /* iOS compatible - not fixed */
-        background-position: 0 0 !important;
         position: relative;
         overflow: hidden !important; /* Keep stars within widget */
       }
@@ -192,8 +191,9 @@
           radial-gradient(circle 6px at 45% 40%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%),
           radial-gradient(circle 8px at 55% 50%, #FFB6C1 0%, #FFB6C1 100%, transparent 100%);
         background-position: 10% 15%, 85% 20%, 15% 50%, 80% 55%, 25% 80%, 70% 85%, 45% 40%, 55% 50%;
-        background-size: 320px 160px !important; /* Match widget size - contain within widget */
+        background-size: 320px 160px !important; /* Cover the entire widget area */
         background-repeat: no-repeat !important;
+        background-clip: padding-box !important; /* Ensure petals stay within widget */
         background-attachment: scroll; /* iOS compatible */
         overflow: hidden !important; /* Keep petals within widget */
       }
@@ -201,6 +201,31 @@
       /* Default widget background */
       #widget {
         background: var(--widget-bg, #0f172a) !important;
+      }
+      
+      /* Theme menu - centered inside widget */
+      #themeMenu {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 2000 !important;
+        min-width: 140px !important;
+      }
+      
+      /* Corner GIF - positioned inside widget container, bottom-right */
+      #cornerGif {
+        position: absolute !important;
+        bottom: 8px !important;
+        right: 8px !important;
+        width: 40px !important;
+        height: 40px !important;
+        z-index: 25 !important;
+        pointer-events: none !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        border-radius: 8px !important;
       }
       
       /* Hide drag handle in widget mode */
