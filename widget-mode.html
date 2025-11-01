@@ -26,46 +26,48 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /* Subtle background - not full screen */
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        /* Very transparent background - feels like running in background */
+        background: rgba(0, 0, 0, 0.1) !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        /* Make it feel like background, not foreground */
+        position: fixed;
       }
       
-      /* Compact widget container - fixed size like a real widget */
+      /* Compact widget container - SMALL widget size (320x160) */
       #widget {
-        width: 350px !important;
-        max-width: 350px !important;
-        height: 180px !important;
-        max-height: 180px !important;
+        width: 320px !important;
+        max-width: 320px !important;
+        height: 160px !important;
+        max-height: 160px !important;
         margin: 0 auto;
-        padding: 12px;
-        /* Widget-like appearance */
-        background: var(--widget-bg, #0f172a);
-        border-radius: 18px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        /* Centered, compact view */
+        padding: 8px;
+        /* Widget-like appearance - compact and floating */
+        background: var(--widget-bg, #0f172a) !important;
+        border-radius: 22px;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.7), 
+                    0 0 0 1px rgba(255, 255, 255, 0.08);
+        /* Centered, compact view - floating feel */
         position: relative;
         display: flex;
         align-items: center;
         overflow: visible;
+        /* Make it stand out - appears to float above background */
+        z-index: 1000;
+        /* Subtle glow effect */
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
       }
       
-      /* Make background adapt to theme while keeping compact widget feel */
+      /* Make background very transparent - feels like running in background */
       body.starlight-background {
-        background: rgba(29, 43, 77, 0.25);
+        background: rgba(29, 43, 77, 0.08) !important;
       }
       
       body.anything-background-effect {
-        background: rgba(253, 253, 253, 0.2);
+        background: rgba(253, 253, 253, 0.05) !important;
       }
       
-      /* Keep widget background solid regardless of body background */
-      #widget {
-        background: var(--widget-bg, #0f172a) !important;
-      }
-      
-      /* Theme backgrounds apply to widget itself, not the overlay */
+      /* Theme backgrounds apply to widget itself - solid, not transparent */
       body.starlight-background #widget {
         background: #1D2B4D !important;
       }
@@ -74,36 +76,69 @@
         background: #FDFDFD !important;
       }
       
+      /* Make sure widget stands out */
+      #widget {
+        background: var(--widget-bg, #0f172a) !important;
+      }
+      
       /* Hide drag handle in widget mode */
       #drag {
         display: none;
       }
       
-      /* Ensure vinyl stays in place */
+      /* Ensure vinyl stays in place - smaller for compact widget */
       .vinyl-wrap {
         position: absolute;
-        left: -85px;
+        left: -70px;
+        width: 140px !important;
+        height: 140px !important;
         z-index: 20;
       }
       
-      /* Responsive - smaller on very small screens */
+      .vinyl-disc {
+        width: 120px !important;
+        height: 120px !important;
+      }
+      
+      /* Make text slightly smaller for compact feel */
+      #title {
+        font-size: 1rem !important;
+      }
+      
+      #artist {
+        font-size: 0.75rem !important;
+      }
+      
+      button {
+        padding: 6px 14px !important;
+        font-size: 0.8rem !important;
+      }
+      
+      /* Responsive - even smaller on mobile */
       @media (max-width: 400px) {
         #widget {
-          width: calc(100vw - 20px) !important;
-          max-width: calc(100vw - 20px) !important;
-          height: 160px !important;
-          margin: 10px;
+          width: 300px !important;
+          max-width: 300px !important;
+          height: 140px !important;
         }
         
         .vinyl-wrap {
-          width: 120px !important;
-          height: 120px !important;
-          left: -60px !important;
+          width: 110px !important;
+          height: 110px !important;
+          left: -55px !important;
         }
         
         .vinyl-disc {
-          width: 100px !important;
-          height: 100px !important;
+          width: 90px !important;
+          height: 90px !important;
+        }
+        
+        #title {
+          font-size: 0.9rem !important;
+        }
+        
+        #artist {
+          font-size: 0.7rem !important;
         }
       }
       
