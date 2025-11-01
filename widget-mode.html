@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="description" content="Music Widget - Compact Mode" />
+    <meta name="theme-color" content="#E8C67B" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Music Widget</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* Widget mode - compact floating widget style */
+      * {
+        box-sizing: border-box;
+      }
+      
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        /* Center the compact widget */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Subtle background - not full screen */
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      
+      /* Compact widget container - fixed size like a real widget */
+      #widget {
+        width: 350px !important;
+        max-width: 350px !important;
+        height: 180px !important;
+        max-height: 180px !important;
+        margin: 0 auto;
+        padding: 12px;
+        /* Widget-like appearance */
+        background: var(--widget-bg, #0f172a);
+        border-radius: 18px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        /* Centered, compact view */
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: visible;
+      }
+      
+      /* Make background adapt to theme while keeping compact widget feel */
+      body.starlight-background {
+        background: rgba(29, 43, 77, 0.25);
+      }
+      
+      body.anything-background-effect {
+        background: rgba(253, 253, 253, 0.2);
+      }
+      
+      /* Keep widget background solid regardless of body background */
+      #widget {
+        background: var(--widget-bg, #0f172a) !important;
+      }
+      
+      /* Theme backgrounds apply to widget itself, not the overlay */
+      body.starlight-background #widget {
+        background: #1D2B4D !important;
+      }
+      
+      body.anything-background-effect #widget {
+        background: #FDFDFD !important;
+      }
+      
+      /* Hide drag handle in widget mode */
+      #drag {
+        display: none;
+      }
+      
+      /* Ensure vinyl stays in place */
+      .vinyl-wrap {
+        position: absolute;
+        left: -85px;
+        z-index: 20;
+      }
+      
+      /* Responsive - smaller on very small screens */
+      @media (max-width: 400px) {
+        #widget {
+          width: calc(100vw - 20px) !important;
+          max-width: calc(100vw - 20px) !important;
+          height: 160px !important;
+          margin: 10px;
+        }
+        
+        .vinyl-wrap {
+          width: 120px !important;
+          height: 120px !important;
+          left: -60px !important;
+        }
+        
+        .vinyl-disc {
+          width: 100px !important;
+          height: 100px !important;
+        }
+      }
+      
+      /* Prevent full-screen feel */
+      body {
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="./assets/snoopicon.png" />
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./service-worker.js')
+          .then(registration => {
+            console.log('SW registered:', registration);
+          })
+          .catch(error => {
+            console.error("SW registration failed:", error);
+          });
+        });
+      }
+    </script>
+    <script src="./renderer_clean.js"></script>
+  </head>
+  <body class="bg-gray-900 text-white font-sans">
+   <div id="widget" class="w-full max-w-[350px] h-[180px] mx-auto p-2 flex items-center relative overflow-visible bg-transparent">
+      <!-- Left: vinyl (partially outside) - now a CSS-styled realistic vinyl disc -->
+      <div id="vinylWrap" class="vinyl-wrap vinyl-outside">
+        <div id="vinyl" class="vinyl-disc" aria-hidden="true">
+          <div id="vinylLabel" class="vinyl-center-label">Label</div>
+        </div>
+      </div>
+
+      <!-- Right: content -->
+<div class="flex-1 h-full flex flex-col justify-center pl-16 pr-2">
+        <!-- Removed drag handle for widget mode -->
+        <div class="w-full flex justify-end items-center mb-1">
+          <div class="flex items-center gap-2">
+            <button id="themeBtn" class="theme-btn text-xs text-gray-300 px-2 py-1 bg-gray-800 rounded no-drag">Theme</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex-1 text-center">
+            <div class="flex items-center justify-center gap-2">
+              <div id="title" class="text-lg font-semibold">Title</div>
+              <div id="heartIcon" class="heart-icon" aria-hidden="true">♥</div>
+            </div>
+            <div id="artist" class="text-xs text-gray-400">Artist</div>
+          </div>
+
+          <div class="flex items-center gap-2 no-drag">
+            <button id="playBtn" class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-sm">Play</button>
+            <button id="pauseBtn" class="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 text-sm">Pause</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="themeMenu" class="theme-menu hidden"></div>
+  <div id="cornerGif" class="corner-gif" aria-hidden="true"></div>
+      <audio id="audio" preload="auto"></audio>
+      
+    </div>
+  </body>
+</html>
+

@@ -3,7 +3,7 @@
     "short_name": "Music Widget",
     "version": "Snoopy",
     "description": "Beautiful music widget with vinyl visualization - works offline",
-    "start_url": "./index.html",
+    "start_url": "./widget-mode.html",
     "scope": "./",
     "display": "standalone",
     "orientation": "portrait",
