@@ -8,7 +8,7 @@ html, body {
   overflow: hidden;
   background:transparent; 
   border-radius: 18px;
-  /* Mobile optimizations */
+  /* Mobile optimizations for PWA */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
@@ -46,7 +46,7 @@ html, body {
   }
 }
 
-/* iOS safe area support */
+/* iOS safe area support (crucial for PWA) */
 @supports (padding: max(0px)) {
   body {
     padding-left: max(12px, env(safe-area-inset-left));
@@ -125,7 +125,8 @@ html, body {
   z-index: 20;
   /* UI Overhaul: Transition for dynamic frame changes */
   transition: all 0.3s ease-in-out; 
-  transform: translateZ(0); /* FIX: Forces hardware layer for stable geometry on iOS */
+  /* ⭐️ FIX 1: Force hardware layer for perfect geometry on iOS */
+  transform: translateZ(0); 
 }
 
 /* Realistic vinyl disc built with CSS: dark body, subtle highlight and concentric grooves */
@@ -156,7 +157,8 @@ radial-gradient(circle at 10% 10%, rgba(255,255,255,0.08) 0%, transparent 20%);
 /* Blend mode is crucial: Multiplies the image with the grooves/sheen */
 background-blend-mode: multiply, overlay, overlay; 
 transition: transform 0.3s linear, box-shadow 0.3s ease-in-out; 
-transform: translateZ(0); /* FIX: Forces hardware layer for stable geometry on iOS */
+/* ⭐️ FIX 1: Force hardware layer for perfect geometry on iOS */
+transform: translateZ(0); 
 }
 .vinyl-disc.spin { animation: spin-anim 2s linear infinite; }
 
@@ -270,7 +272,8 @@ transform: translateZ(0); /* FIX: Forces hardware layer for stable geometry on i
   background-position: 10% 10%, 90% 15%, 15% 50%, 85% 60%, 30% 85%, 70% 80%, 45% 35%, 60% 45%;
   background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   background-repeat: no-repeat;
-  background-attachment: scroll; /* Changed from fixed - iOS Safari compatible */
+  /* ⭐️ FIX 2: Crucial change for iOS PWA support */
+  background-attachment: scroll;
 }
 
 /* Add yellow glow to corner GIF for 'anything' theme */
@@ -354,7 +357,8 @@ transform: translateZ(0); /* FIX: Forces hardware layer for stable geometry on i
   
   background-repeat: repeat; 
   background-size: 150px 150px; 
-  background-attachment: scroll; /* Changed from fixed - iOS Safari compatible */
+  /* ⭐️ FIX 2: Crucial change for iOS PWA support */
+  background-attachment: scroll;
   position: relative; /* Needed for ::before pseudo-element */
   overflow: hidden; /* Ensures moon doesn't overflow */
 }
