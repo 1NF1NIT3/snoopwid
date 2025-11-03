@@ -1,4 +1,4 @@
-const CACHE_NAME = 'music-widget-cache-v10'; // INCREMENTED TO v9
+const CACHE_NAME = 'music-widget-cache-v11'; // INCREMENTED TO v9
 
 const urlsToCache = [
   './',
@@ -33,3 +33,4 @@ self.addEventListener('fetch', event => {
         })
     );
 })
+
