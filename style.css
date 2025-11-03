@@ -125,6 +125,7 @@ html, body {
   z-index: 20;
   /* UI Overhaul: Transition for dynamic frame changes */
   transition: all 0.3s ease-in-out; 
+  transform: translateZ(0); /* FIX: Forces hardware layer for stable geometry on iOS */
 }
 
 /* Realistic vinyl disc built with CSS: dark body, subtle highlight and concentric grooves */
@@ -140,12 +141,12 @@ background-size: cover;
 background-position: center; 
 background-repeat: no-repeat;
 background-image: 
-    /* 1. Deep, complex repeating groove pattern */
-    repeating-radial-gradient(
-      circle at 50% 50%, 
-      rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.4) 0.5px, /* Dark line */
-      rgba(255, 255, 255, 0.05) 0.5px, transparent 1.5px /* Light space/reflection */
-    ),
+    /* 1. Deep, complex repeating groove pattern */
+    repeating-radial-gradient(
+      circle at 50% 50%, 
+      rgba(0, 0, 0, 0.4) 0, rgba(0, 0, 0, 0.4) 0.5px, /* Dark line */
+      rgba(255, 255, 255, 0.05) 0.5px, transparent 1.5px /* Light space/reflection */
+    ),
 /* 2. Subtle, large reflection for plastic sheen */
 radial-gradient(circle at 120% 120%, rgba(255,255,255,0.15) 0%, transparent 40%),
 /* 3. Reflection from top-left */
@@ -155,6 +156,7 @@ radial-gradient(circle at 10% 10%, rgba(255,255,255,0.08) 0%, transparent 20%);
 /* Blend mode is crucial: Multiplies the image with the grooves/sheen */
 background-blend-mode: multiply, overlay, overlay; 
 transition: transform 0.3s linear, box-shadow 0.3s ease-in-out; 
+transform: translateZ(0); /* FIX: Forces hardware layer for stable geometry on iOS */
 }
 .vinyl-disc.spin { animation: spin-anim 2s linear infinite; }
 
